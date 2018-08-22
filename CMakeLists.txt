@@ -52,9 +52,9 @@ add_subdirectory(src/shacl)
 install(DIRECTORY src/
   DESTINATION include
   USE_SOURCE_PERMISSIONS
-  FILES_MATCHING
-    PATTERN "*.h"
-    PATTERN "*test*" EXCLUDE)
+  PATTERN "*test*" EXCLUDE
+  PATTERN "*CMakeLists.txt" EXCLUDE
+  PATTERN "*.h")
 
 install(FILES
   "${trait_SOURCE_DIR}/.cmake/shaclConfig.cmake"
