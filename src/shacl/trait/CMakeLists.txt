@@ -14,7 +14,10 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/Scalable.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Arithmetic.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/IsRange.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp>
+    ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DereferenceDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Dereferenced.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RangeTraits.hpp>
   $<INSTALL_INTERFACE:
     include/shacl/trait/LessThanDefined.hpp
     include/shacl/trait/LessThanEqualDefined.hpp
@@ -30,7 +33,10 @@ target_sources(trait INTERFACE
     include/shacl/trait/Scalable.hpp
     include/shacl/trait/Arithmetic.hpp
     include/shacl/trait/IsRange.hpp
-    include/shacl/trait/InvokeDefined.hpp>)
+    include/shacl/trait/InvokeDefined.hpp
+    include/shacl/trait/DereferenceDefined.hpp
+    include/shacl/trait/Dereferenced.hpp
+    include/shacl/trait/RangeTraits.hpp>)
 
 if(trait.tests)
   add_subdirectory(LessThanDefined/test)
@@ -48,4 +54,7 @@ if(trait.tests)
   add_subdirectory(Arithmetic/test)
   add_subdirectory(IsRange/test)
   add_subdirectory(InvokeDefined/test)
+  add_subdirectory(DereferenceDefined/test)
+  add_subdirectory(Dereferenced/test)
+  add_subdirectory(RangeTraits/test)
 endif()
