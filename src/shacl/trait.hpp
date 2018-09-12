@@ -34,6 +34,8 @@ namespace trait {
 #include "shacl/trait/DereferenceDefined.hpp"
 #include "shacl/trait/Dereferenced.hpp"
 
+#include "shacl/trait/IsInteger.hpp"
+
 }
 }
 
