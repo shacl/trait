@@ -9,10 +9,10 @@ struct Dereferenceable {
 struct NotDereferenceable {};
 
 template<typename T, typename = shacl::trait::void_t<typename T::type> >
-bool has_nested_type(T) { return true; }
+bool has_internal_type(T) { return true; }
 
 template<typename... T>
-bool has_nested_type(T...) { return false; }
+bool has_internal_type(T...) { return false; }
 
 SCENARIO("Dereferenced"){
   GIVEN("a dereferenceable type"){
@@ -21,7 +21,7 @@ SCENARIO("Dereferenced"){
     REQUIRE( affirmative );
   }
   GIVEN("a non-dereferenceable type"){
-    bool negative = has_nested_type( shacl::trait::Dereferenced<NotDereferenceable>{} );
-    REQUIRE(not negative );
+    bool negative = has_internal_type( shacl::trait::Dereferenced<NotDereferenceable>{} );
+    REQUIRE_FALSE( negative );
   }
 }
