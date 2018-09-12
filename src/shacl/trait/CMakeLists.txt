@@ -17,7 +17,8 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DereferenceDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Dereferenced.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RangeTraits.hpp>
+    ${CMAKE_CURRENT_SOURCE_DIR}/RangeTraits.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/IsInteger.hpp>
   $<INSTALL_INTERFACE:
     include/shacl/trait/LessThanDefined.hpp
     include/shacl/trait/LessThanEqualDefined.hpp
@@ -36,7 +37,8 @@ target_sources(trait INTERFACE
     include/shacl/trait/InvokeDefined.hpp
     include/shacl/trait/DereferenceDefined.hpp
     include/shacl/trait/Dereferenced.hpp
-    include/shacl/trait/RangeTraits.hpp>)
+    include/shacl/trait/RangeTraits.hpp
+    include/shacl/trait/IsInteger.hpp>)
 
 if(trait.tests)
   add_subdirectory(LessThanDefined/test)
@@ -57,4 +59,5 @@ if(trait.tests)
   add_subdirectory(DereferenceDefined/test)
   add_subdirectory(Dereferenced/test)
   add_subdirectory(RangeTraits/test)
+  add_subdirectory(IsInteger/test)
 endif()
