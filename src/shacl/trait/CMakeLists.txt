@@ -1,51 +1,72 @@
 target_sources(trait INTERFACE
   $<BUILD_INTERFACE:
-    ${CMAKE_CURRENT_SOURCE_DIR}/LessThanDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/LessThanEqualDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/AdditionDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Arithmetic.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Comparable.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Difference.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DivisionDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/EqualityComparable.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/EqualityDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GreaterThanDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GreaterThanEqualDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/EqualityDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/HasType.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InequalityDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Comparable.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/AdditionDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/SubtractionDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MultiplicationDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DivisionDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Scalable.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Arithmetic.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/InvokeResult.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/IsRange.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp>
+    ${CMAKE_CURRENT_SOURCE_DIR}/LessThanDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/LessThanEqualDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MultiplicationDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Product.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Quotient.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scalable.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubtractionDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Sum.hpp>
   $<INSTALL_INTERFACE:
-    include/shacl/trait/LessThanDefined.hpp
-    include/shacl/trait/LessThanEqualDefined.hpp
+    include/shacl/trait/AdditionDefined.hpp
+    include/shacl/trait/Arithmetic.hpp
+    include/shacl/trait/Comparable.hpp
+    include/shacl/trait/Difference.hpp
+    include/shacl/trait/DivisionDefined.hpp
+    include/shacl/trait/EqualityComparable.hpp
+    include/shacl/trait/EqualityDefined.hpp
     include/shacl/trait/GreaterThanDefined.hpp
     include/shacl/trait/GreaterThanEqualDefined.hpp
-    include/shacl/trait/EqualityDefined.hpp
+    include/shacl/trait/HasType.hpp
     include/shacl/trait/InequalityDefined.hpp
-    include/shacl/trait/Comparable.hpp
-    include/shacl/trait/AdditionDefined.hpp
-    include/shacl/trait/SubtractionDefined.hpp
-    include/shacl/trait/MultiplicationDefined.hpp
-    include/shacl/trait/DivisionDefined.hpp
-    include/shacl/trait/Scalable.hpp
-    include/shacl/trait/Arithmetic.hpp
+    include/shacl/trait/InvokeDefined.hpp
+    include/shacl/trait/InvokeResult.hpp
     include/shacl/trait/IsRange.hpp
-    include/shacl/trait/InvokeDefined.hpp>)
+    include/shacl/trait/LessThanDefined.hpp
+    include/shacl/trait/LessThanEqualDefined.hpp
+    include/shacl/trait/MultiplicationDefined.hpp
+    include/shacl/trait/Product.hpp
+    include/shacl/trait/Quotient.hpp
+    include/shacl/trait/Scalable.hpp
+    include/shacl/trait/SubtractionDefined.hpp
+    include/shacl/trait/Sum.hpp>)
 
 if(trait.tests)
-  add_subdirectory(LessThanDefined/test)
-  add_subdirectory(LessThanEqualDefined/test)
+  add_subdirectory(AdditionDefined/test)
+  add_subdirectory(Arithmetic/test)
+  add_subdirectory(Comparable/test)
+  add_subdirectory(Difference/test)
+  add_subdirectory(DivisionDefined/test)
+  add_subdirectory(EqualityComparable/test)
+  add_subdirectory(EqualityDefined/test)
   add_subdirectory(GreaterThanDefined/test)
   add_subdirectory(GreaterThanEqualDefined/test)
-  add_subdirectory(EqualityDefined/test)
+  add_subdirectory(HasType/test)
   add_subdirectory(InequalityDefined/test)
-  add_subdirectory(Comparable/test)
-  add_subdirectory(AdditionDefined/test)
-  add_subdirectory(SubtractionDefined/test)
-  add_subdirectory(MultiplicationDefined/test)
-  add_subdirectory(DivisionDefined/test)
-  add_subdirectory(Scalable/test)
-  add_subdirectory(Arithmetic/test)
-  add_subdirectory(IsRange/test)
   add_subdirectory(InvokeDefined/test)
+  add_subdirectory(InvokeResult/test)
+  add_subdirectory(IsRange/test)
+  add_subdirectory(LessThanDefined/test)
+  add_subdirectory(LessThanEqualDefined/test)
+  add_subdirectory(MultiplicationDefined/test)
+  add_subdirectory(Product/test)
+  add_subdirectory(Quotient/test)
+  add_subdirectory(Scalable/test)
+  add_subdirectory(SubtractionDefined/test)
+  add_subdirectory(Sum/test)
 endif()

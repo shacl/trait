@@ -23,7 +23,7 @@ SCENARIO("Homogeneous == operator"){
     constexpr bool hasEquality = shacl::trait::EqualityDefined_v<Does>;
     REQUIRE(hasEquality);
   }
-  GIVEN("a type without a defined less than operator"){
+  GIVEN("a type without a defined equality operator"){
     constexpr bool hasEquality = shacl::trait::EqualityDefined_v<Doesnt>;
     REQUIRE(not hasEquality);
   }
