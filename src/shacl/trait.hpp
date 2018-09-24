@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <type_traits>
+#include <iterator>
 
 namespace shacl {
 namespace trait {
@@ -11,6 +12,9 @@ namespace trait {
 #include "shacl/trait/HasType.hpp"
 
 #include "shacl/trait/IsRange.hpp"
+#include "shacl/trait/RangeTraits.hpp"
+
+#include "shacl/trait/IsInteger.hpp"
 #include "shacl/trait/IsReferenceWrapper.hpp"
 
 #include "shacl/trait/detail/INVOKE.hpp"
@@ -38,6 +42,9 @@ namespace trait {
 #include "shacl/trait/SubtractionDefined.hpp"
 #include "shacl/trait/Difference.hpp"
 #include "shacl/trait/Arithmetic.hpp"
+
+#include "shacl/trait/DereferenceDefined.hpp"
+#include "shacl/trait/Dereferenced.hpp"
 
 }
 }
