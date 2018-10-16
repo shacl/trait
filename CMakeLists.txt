@@ -18,7 +18,7 @@ CMAKE_DEPENDENT_OPTION(trait.tests
 add_library(trait INTERFACE)
 add_library(shacl::trait ALIAS trait)
 
-target_compile_features(trait INTERFACE cxx_std_14)
+target_compile_features(trait INTERFACE cxx_std_17)
 
 target_include_directories(trait INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src>
