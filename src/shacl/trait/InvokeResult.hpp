@@ -4,12 +4,11 @@ namespace detail {
 
 template<typename F, typename... Args>
 struct InvokeResult {
-  template<typename G = F, typename = void>
+  template<typename G = F, bool = InvokeDefined_v<G, Args...>>
   struct Implementation {};
 
   template<typename G>
-  struct Implementation<G, void_t<decltype(INVOKE(std::declval<G>(),
-                                                  std::declval<Args>()...))>> {
+  struct Implementation<G, true> {
     using type = decltype(INVOKE(std::declval<G>(), std::declval<Args>()...));
   };
 };
