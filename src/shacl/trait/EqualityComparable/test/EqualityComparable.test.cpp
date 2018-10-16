@@ -19,7 +19,7 @@ struct HasEquality {
 };
 
 struct HasInequality {
-  bool operator==(const HasInequality&) const {
+  bool operator!=(const HasInequality&) const {
     return false;
   }
 };

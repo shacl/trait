@@ -8,8 +8,8 @@ struct Doesnt {};
 template<int i>
 struct OneWay {
   template<int j, std::enable_if_t<(i < j), bool> = true>
-  OneWay<j-i> // subtraction is a non-monoidal operator, hence ordering matters.
-              // this property is useful to check order of evaluation in testing
+  OneWay<j-i> // subtraction is a non-associative operator, hence ordering matters.
+              // this property is useful to check order of evaluation in testing below
   operator*(const OneWay<j>&) const {
     return {};
   }

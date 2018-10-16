@@ -10,15 +10,13 @@ struct Does {
 
 struct Doesnt {};
 
-template<int i>
-struct OneWay {
-  template<int j, std::enable_if_t<(i < j), bool> = true>
-  bool operator+(const OneWay<j>&) const {
-    return true;
-  }
+struct Right {};
+
+struct Left {
+  bool operator+(Right);
 };
 
-SCENARIO("Homogeneous + operator"){
+SCENARIO("Is + operator defined between two instances of a given type"){ 
   GIVEN("a type with a defined addition operator"){
     constexpr bool hasAddition = shacl::trait::AdditionDefined_v<Does>;
     REQUIRE(hasAddition);
@@ -29,15 +27,15 @@ SCENARIO("Homogeneous + operator"){
   }
 }
 
-SCENARIO("Heterogeneous + operator"){
-  GIVEN("a pair of types with a defined addition operator"){
+SCENARIO("Is + operator defined between two instances of two distinct types"){   
+  GIVEN("a pair of types with a defined addition operator - a + b is defined"){
     constexpr bool hasAddition =
-      shacl::trait::AdditionDefined_v<OneWay<1>,OneWay<2>>;
+      shacl::trait::AdditionDefined_v<Left, Right>;
     REQUIRE(hasAddition);
   }
   GIVEN("a pair of types without a defined addition operator"){
     constexpr bool hasAddition =
-      shacl::trait::AdditionDefined_v<OneWay<3>,OneWay<2>>;
+      shacl::trait::AdditionDefined_v<Right, Left>;
     REQUIRE(not hasAddition);
   }
 }
