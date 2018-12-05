@@ -3,9 +3,11 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/AdditionDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Arithmetic.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Comparable.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Conjunction.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DereferenceDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Dereferenced.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Difference.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Disjunction.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DivisionDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/EqualityComparable.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/EqualityDefined.hpp
@@ -20,6 +22,7 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/LessThanDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LessThanEqualDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MultiplicationDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Negate.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Product.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Quotient.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RangeTraits.hpp
@@ -30,8 +33,10 @@ target_sources(trait INTERFACE
     include/shacl/trait/AdditionDefined.hpp
     include/shacl/trait/Arithmetic.hpp
     include/shacl/trait/Comparable.hpp
+    include/shacl/trait/Conjunction.hpp
     include/shacl/trait/DereferenceDefined.hpp
     include/shacl/trait/Dereferenced.hpp
+    include/shacl/trait/Disjunction.hpp
     include/shacl/trait/Difference.hpp
     include/shacl/trait/DivisionDefined.hpp
     include/shacl/trait/EqualityComparable.hpp
@@ -48,6 +53,7 @@ target_sources(trait INTERFACE
     include/shacl/trait/LessThanDefined.hpp
     include/shacl/trait/LessThanEqualDefined.hpp
     include/shacl/trait/MultiplicationDefined.hpp
+    include/shacl/trait/Negate.hpp
     include/shacl/trait/Product.hpp
     include/shacl/trait/Quotient.hpp
     include/shacl/trait/RangeTraits.hpp
@@ -59,9 +65,11 @@ if(trait.tests)
   add_subdirectory(AdditionDefined/test)
   add_subdirectory(Arithmetic/test)
   add_subdirectory(Comparable/test)
+  add_subdirectory(Conjunction/test)
   add_subdirectory(DereferenceDefined/test)
   add_subdirectory(Dereferenced/test)
   add_subdirectory(Difference/test)
+  add_subdirectory(Disjunction/test)
   add_subdirectory(DivisionDefined/test)
   add_subdirectory(EqualityComparable/test)
   add_subdirectory(EqualityDefined/test)
@@ -76,6 +84,7 @@ if(trait.tests)
   add_subdirectory(LessThanDefined/test)
   add_subdirectory(LessThanEqualDefined/test)
   add_subdirectory(MultiplicationDefined/test)
+  add_subdirectory(Negate/test)
   add_subdirectory(Product/test)
   add_subdirectory(Quotient/test)
   add_subdirectory(RangeTraits/test)
