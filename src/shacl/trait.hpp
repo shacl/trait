@@ -46,6 +46,9 @@ namespace trait {
 #include "shacl/trait/DereferenceDefined.hpp"
 #include "shacl/trait/Dereferenced.hpp"
 
+#include "shacl/trait/Conjunction.hpp"
+#include "shacl/trait/Disjunction.hpp"
+#include "shacl/trait/Negate.hpp"
 }
 }
 
