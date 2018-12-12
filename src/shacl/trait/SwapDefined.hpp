@@ -17,24 +17,24 @@ template<typename T, typename U>
 std::is_same<decltype(swap(std::declval<T&>(), std::declval<U&>())), swap_tag>
 uses_std_swap(int);
 
-template<class T>
+template<typename T>
 struct is_std_swap_noexcept :
   std::integral_constant
   <bool,
    std::is_nothrow_move_constructible<T>::value
    and std::is_nothrow_move_assignable<T>::value> {};
 
-template<class T, std::size_t N>
+template<typename T, std::size_t N>
 struct is_std_swap_noexcept<T[N]> : is_std_swap_noexcept<T> {};
 
-template<class T, class U>
+template<typename T, typename U>
 struct is_adl_swap_noexcept :
   std::integral_constant<bool, noexcept(can_swap<T, U>(0))> {};
 
 }
 }
 
-template<class T, class U = T>
+template<typename T, typename U = T>
 struct SwapDefined :
   std::integral_constant
   <bool,
