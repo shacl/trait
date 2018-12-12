@@ -12,10 +12,10 @@ template<typename T, typename U,
 std::true_type can_swap(int)
   noexcept(noexcept(swap(std::declval<T&>(), std::declval<U&>())));
 
-template<typename, typename> std::false_type uses_std(...);
+template<typename, typename> std::false_type uses_std_swap(...);
 template<typename T, typename U>
 std::is_same<decltype(swap(std::declval<T&>(), std::declval<U&>())), swap_tag>
-uses_std(int);
+uses_std_swap(int);
 
 template<class T>
 struct is_std_swap_noexcept :
@@ -39,7 +39,7 @@ struct SwapDefined :
   std::integral_constant
   <bool,
    decltype(detail::adl::can_swap<T, U>(0))::value
-   and (not decltype(detail::adl::uses_std<T, U>(0))::value
+   and (not decltype(detail::adl::uses_std_swap<T, U>(0))::value
         or (std::is_move_assignable<T>::value
             and std::is_move_constructible<T>::value))> {};
 
@@ -48,7 +48,7 @@ struct SwapDefined<T[N], T[N]> :
   std::integral_constant
   <bool,
    decltype(detail::adl::can_swap<T[N], T[N]>(0))::value
-   and (not decltype(detail::adl::uses_std<T[N], T[N]>(0))::value
+   and (not decltype(detail::adl::uses_std_swap<T[N], T[N]>(0))::value
         or SwapDefined<T, T>::value)> {};
 
 template<typename T, typename U = T>
