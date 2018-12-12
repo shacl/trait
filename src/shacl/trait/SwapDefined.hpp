@@ -1,10 +1,10 @@
 namespace detail {
 namespace adl {
 
-struct tag {};
+struct swap_tag {};
 
-template<typename T> tag swap(T&, T&);
-template<typename T, std::size_t N> tag swap(T (&a)[N], T (&b)[N]);
+template<typename T> swap_tag swap(T&, T&);
+template<typename T, std::size_t N> swap_tag swap(T (&a)[N], T (&b)[N]);
 
 template<typename, typename> std::false_type can_swap(...) noexcept(false);
 template<typename T, typename U,
@@ -14,7 +14,7 @@ std::true_type can_swap(int)
 
 template<typename, typename> std::false_type uses_std(...);
 template<typename T, typename U>
-std::is_same<decltype(swap(std::declval<T&>(), std::declval<U&>())), tag>
+std::is_same<decltype(swap(std::declval<T&>(), std::declval<U&>())), swap_tag>
 uses_std(int);
 
 template<class T>
