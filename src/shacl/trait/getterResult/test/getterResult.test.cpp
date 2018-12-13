@@ -70,7 +70,7 @@ SCENARIO("getterResult"){
   GIVEN("a non-trivially destructible small type"){
     struct Type {
       std::int64_t data;
-      Type() = default;;
+      Type() = default;
       ~Type() {}
     };
 
