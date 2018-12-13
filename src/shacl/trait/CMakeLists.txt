@@ -3,17 +3,21 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/AdditionDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Arithmetic.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Comparable.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Compound.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ConditionalApplication.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Conjunction.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DereferenceDefined.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Dereferenced.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DereferenceResult.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Difference.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Disjunction.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DivisionDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/EqualityComparable.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/EqualityDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/getterResult.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GreaterThanDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GreaterThanEqualDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/HasType.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Identity.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InequalityDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InvokeResult.hpp
@@ -28,22 +32,28 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/RangeTraits.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scalable.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SubtractionDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubscriptDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubscriptResult.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Sum.hpp>
   $<INSTALL_INTERFACE:
     include/shacl/trait/AdditionDefined.hpp
     include/shacl/trait/Arithmetic.hpp
     include/shacl/trait/Comparable.hpp
+    include/shacl/trait/Compound.hpp
+    include/shacl/trait/ConditionalApplication.hpp
     include/shacl/trait/Conjunction.hpp
     include/shacl/trait/DereferenceDefined.hpp
-    include/shacl/trait/Dereferenced.hpp
+    include/shacl/trait/DereferenceResult.hpp
     include/shacl/trait/Disjunction.hpp
     include/shacl/trait/Difference.hpp
     include/shacl/trait/DivisionDefined.hpp
     include/shacl/trait/EqualityComparable.hpp
     include/shacl/trait/EqualityDefined.hpp
+    include/shacl/trait/getterResult.hpp
     include/shacl/trait/GreaterThanDefined.hpp
     include/shacl/trait/GreaterThanEqualDefined.hpp
     include/shacl/trait/HasType.hpp
+    include/shacl/trait/Identity.hpp
     include/shacl/trait/InequalityDefined.hpp
     include/shacl/trait/InvokeDefined.hpp
     include/shacl/trait/InvokeDefined.hpp
@@ -59,23 +69,29 @@ target_sources(trait INTERFACE
     include/shacl/trait/RangeTraits.hpp
     include/shacl/trait/Scalable.hpp
     include/shacl/trait/SubtractionDefined.hpp
+    include/shacl/trait/SubscriptDefined.hpp
+    include/shacl/trait/SubscriptResult.hpp
     include/shacl/trait/Sum.hpp>)
 
 if(trait.tests)
   add_subdirectory(AdditionDefined/test)
   add_subdirectory(Arithmetic/test)
   add_subdirectory(Comparable/test)
+  add_subdirectory(Compound/test)
+  add_subdirectory(ConditionalApplication/test)
   add_subdirectory(Conjunction/test)
   add_subdirectory(DereferenceDefined/test)
-  add_subdirectory(Dereferenced/test)
+  add_subdirectory(DereferenceResult/test)
   add_subdirectory(Difference/test)
   add_subdirectory(Disjunction/test)
   add_subdirectory(DivisionDefined/test)
   add_subdirectory(EqualityComparable/test)
   add_subdirectory(EqualityDefined/test)
+  add_subdirectory(getterResult/test)
   add_subdirectory(GreaterThanDefined/test)
   add_subdirectory(GreaterThanEqualDefined/test)
   add_subdirectory(HasType/test)
+  add_subdirectory(Identity/test)
   add_subdirectory(InequalityDefined/test)
   add_subdirectory(InvokeDefined/test)
   add_subdirectory(InvokeResult/test)
@@ -90,5 +106,7 @@ if(trait.tests)
   add_subdirectory(RangeTraits/test)
   add_subdirectory(Scalable/test)
   add_subdirectory(SubtractionDefined/test)
+  add_subdirectory(SubscriptDefined/test)
+  add_subdirectory(SubscriptResult/test)
   add_subdirectory(Sum/test)
 endif()
