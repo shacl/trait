@@ -49,7 +49,7 @@ defined_for<T, U, void_t<decltype(swap(std::declval<T&>(),
 }
 }
 
-template<typename T, typename U>
+template<typename T, typename U = T>
 struct SwapDefined :
   std::integral_constant<bool, detail::swap::defined_for<T, U>> {};
 

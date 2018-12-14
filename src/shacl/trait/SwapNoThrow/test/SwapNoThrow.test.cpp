@@ -90,7 +90,7 @@ SCENARIO("SwapNoThrow"){
       }
     }
 
-    GIVEN("the function exception dafety is unspecified"){
+    GIVEN("the function exception safety is unspecified"){
       THEN("the swap exception safety trait will return false"){
         REQUIRE_FALSE(shacl::trait::SwapNoThrow_v<useAdl::ImplicitUnsafe>);
       }
