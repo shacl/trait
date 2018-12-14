@@ -4,13 +4,13 @@ namespace swap {
 /**
  * We define the signature for a surrogate function for std::swap, which accepts
  * the same arguments, but (unlike std::swap) is constrained via SFINAE. This
- * swap definition will be found by namespace lookup by the other machinery in
- * this namespace should argument-dependent lookup for a swap function on a
- * parameter type fail.
+ * swap definition will be found by namespace lookup by the `defined_for`
+ * template variable (defined later in this namespace) should argument-dependent
+ * lookup for a swap function on a parameter type fail.
  *
  * Std::swap is implemented in terms of move construction and move assignment.
- * If this functionality is not available, an instantiation of std::swap can be
- * expected to fail with a hard error.
+ * If this functionality is not available, an instantiation of std::swap will
+ * fail with a hard error.
  */
 template<typename T,
          std::enable_if_t
