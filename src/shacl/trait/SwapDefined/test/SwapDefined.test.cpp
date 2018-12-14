@@ -19,6 +19,8 @@ struct Assignment {
 }
 
 namespace useAdl {
+struct Other {};
+
 struct Yes {
   Yes(int x) : x(x) {}
   ~Yes() {}
@@ -27,6 +29,8 @@ struct Yes {
   Yes(Yes&&) = delete;
 
   friend void swap(Yes& rhs, Yes& lhs) { std::swap(rhs.x, lhs.x); }
+  friend void swap(Other&, Yes&) {}
+  friend void swap(Yes&, Other&) {}
   int x;
 };
 
@@ -44,6 +48,13 @@ SCENARIO("SwapDefined"){
     GIVEN("an array"){
       THEN("the swap-detection trait will return true"){
         REQUIRE(shacl::trait::SwapDefined_v<useStd::Yes[10]>);
+      }
+    }
+
+    THEN("heterogeneous swap is not supported"){
+      THEN("the swap-detection trait will return false"){
+        REQUIRE_FALSE(shacl::trait::SwapDefined_v<useStd::Yes, useAdl::Other>);
+        REQUIRE_FALSE(shacl::trait::SwapDefined_v<useAdl::Other, useStd::Yes>);
       }
     }
   }
@@ -86,6 +97,15 @@ SCENARIO("SwapDefined"){
       GIVEN("an array"){
         THEN("the swap-detection trait will return true"){
           REQUIRE(shacl::trait::SwapDefined_v<useAdl::Yes[10]>);
+        }
+      }
+
+      GIVEN("an adl swap defined with a distinct type"){
+        THEN("heterogeneous swap is supported"){
+          THEN("the swap-detection trait will return true"){
+            REQUIRE(shacl::trait::SwapDefined_v<useAdl::Yes, useAdl::Other>);
+            REQUIRE(shacl::trait::SwapDefined_v<useAdl::Other, useAdl::Yes>);
+          }
         }
       }
     }
