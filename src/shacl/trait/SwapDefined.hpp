@@ -34,9 +34,9 @@ void swap(T (&a)[N], T (&b)[N]) noexcept(noexcept(swap(*a, *b)));
  * parameter types OR the type in question does not support move assignment
  * and/or move construction.
  *
- * If T != U, a swap implementation is only available iff a matching swap
- * signature was defined in the namespace of (one or both of) the argument
- * parameter types.
+ * If T != U, a swap implementation is available iff a matching swap signature
+ * was defined in the namespace of (one or both of) the argument parameter
+ * types.
  */
 template<typename T, typename U, typename = void>
 static constexpr bool defined_for = false;
