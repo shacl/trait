@@ -1,62 +1,62 @@
 namespace detail {
-namespace adl {
+namespace swap {
 
-struct swap_tag {};
+/**
+ * We define the signature for a surrogate function for std::swap, which accepts
+ * the same arguments, but (unlike std::swap) is constrained via SFINAE. This
+ * swap definition will be found by namespace lookup by the other machinery in
+ * this namespace should argument-dependent lookup for a swap function on a
+ * parameter type fail.
+ *
+ * Std::swap is implemented in terms of move construction and move assignment.
+ * If this functionality is not available, an instantiation of std::swap can be
+ * expected to fail with a hard error.
+ */
+template<typename T,
+         std::enable_if_t
+         <std::is_move_assignable<T>::value
+          and std::is_move_constructible<T>::value, bool> = true>
+void swap(T&, T&)
+  noexcept(std::is_nothrow_move_assignable<T>::value
+           and std::is_nothrow_move_constructible<T>::value);
 
-template<typename T>
-swap_tag swap(T&, T&);
-  
-template<typename T, std::size_t N>
-swap_tag swap(T (&a)[N], T (&b)[N]);
+template<typename T, std::size_t N,
+         typename = decltype(swap(std::declval<T&>(), std::declval<T&>()))>
+void swap(T (&a)[N], T (&b)[N]) noexcept(noexcept(swap(*a, *b)));
 
-template<typename, typename>
-std::false_type can_swap(...) noexcept(false);
-  
-template<typename T, typename U,
-         typename = decltype(swap(std::declval<T&>(), std::declval<U&>()))>
-std::true_type can_swap(int)
-  noexcept(noexcept(swap(std::declval<T&>(), std::declval<U&>())));
+/**
+ * We define a boolean template variable which detects whether swap
+ * is available by unqualified lookup.
+ *
+ * If T == U, given the presence of a swap overload in this namespace, a
+ * swap implementation can only be unavailable if a matching swap signature
+ * was explicitly deleted in the namespace of (one or both of) the argument
+ * parameter types OR the type in question does not support move assignment
+ * and/or move construction.
+ *
+ * If T != U, a swap implementation is only available iff a matching swap
+ * signature was defined in the namespace of (one or both of) the argument
+ * parameter types.
+ */
+template<typename T, typename U, typename = void>
+static constexpr bool defined_for = false;
 
-template<typename, typename>
-std::false_type uses_std_swap(...);
-  
 template<typename T, typename U>
-std::is_same<decltype(swap(std::declval<T&>(), std::declval<U&>())), swap_tag>
-uses_std_swap(int);
-
-template<typename T>
-struct is_std_swap_noexcept :
-  std::integral_constant
-  <bool,
-   std::is_nothrow_move_constructible<T>::value
-   and std::is_nothrow_move_assignable<T>::value> {};
+static constexpr bool
+defined_for<T, U, void_t<decltype(swap(std::declval<T&>(),
+                                       std::declval<U&>()))>> = true;
 
 template<typename T, std::size_t N>
-struct is_std_swap_noexcept<T[N]> : is_std_swap_noexcept<T> {};
-
-template<typename T, typename U>
-struct is_adl_swap_noexcept :
-  std::integral_constant<bool, noexcept(can_swap<T, U>(0))> {};
+static constexpr bool
+defined_for<T[N], T[N], void_t<decltype(swap(std::declval<T[N]>(),
+                                             std::declval<T[N]>()))>> = true;
 
 }
 }
 
-template<typename T, typename U = T>
+template<typename T, typename U>
 struct SwapDefined :
-  std::integral_constant
-  <bool,
-   decltype(detail::adl::can_swap<T, U>(0))::value
-   and (not decltype(detail::adl::uses_std_swap<T, U>(0))::value
-        or (std::is_move_assignable<T>::value
-            and std::is_move_constructible<T>::value))> {};
-
-template<class T, std::size_t N>
-struct SwapDefined<T[N], T[N]> :
-  std::integral_constant
-  <bool,
-   decltype(detail::adl::can_swap<T[N], T[N]>(0))::value
-   and (not decltype(detail::adl::uses_std_swap<T[N], T[N]>(0))::value
-        or SwapDefined<T, T>::value)> {};
+  std::integral_constant<bool, detail::swap::defined_for<T, U>> {};
 
 template<typename T, typename U = T>
-static constexpr bool SwapDefined_v = SwapDefined<T, U>::value;
+static constexpr bool SwapDefined_v = detail::swap::defined_for<T, U>;
