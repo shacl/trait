@@ -46,11 +46,6 @@ static constexpr bool
 defined_for<T, U, void_t<decltype(swap(std::declval<T&>(),
                                        std::declval<U&>()))>> = true;
 
-template<typename T, std::size_t N>
-static constexpr bool
-defined_for<T[N], T[N], void_t<decltype(swap(std::declval<T[N]>(),
-                                             std::declval<T[N]>()))>> = true;
-
 }
 }
 
