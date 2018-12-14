@@ -19,6 +19,7 @@ namespace trait {
 
 #include "shacl/trait/detail/INVOKE.hpp"
 #include "shacl/trait/InvokeDefined.hpp"
+#include "shacl/trait/InvokeNoThrow.hpp"
 #include "shacl/trait/InvokeResult.hpp"
 
 #include "shacl/trait/EqualityDefined.hpp"
@@ -49,6 +50,9 @@ namespace trait {
 #include "shacl/trait/Conjunction.hpp"
 #include "shacl/trait/Disjunction.hpp"
 #include "shacl/trait/Negate.hpp"
+
+#include "shacl/trait/SwapDefined.hpp"
+#include "shacl/trait/SwapNoThrow.hpp"
 }
 }
 
