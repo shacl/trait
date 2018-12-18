@@ -20,6 +20,7 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/Identity.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InequalityDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InvokeDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/InvokeNoThrow.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InvokeResult.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/IsInteger.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/IsRange.hpp
@@ -34,7 +35,10 @@ target_sources(trait INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/SubtractionDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SubscriptDefined.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SubscriptResult.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Sum.hpp>
+    ${CMAKE_CURRENT_SOURCE_DIR}/Sum.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Sum.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SwapDefined.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SwapNoThrow.hpp>
   $<INSTALL_INTERFACE:
     include/shacl/trait/AdditionDefined.hpp
     include/shacl/trait/Arithmetic.hpp
@@ -56,7 +60,7 @@ target_sources(trait INTERFACE
     include/shacl/trait/Identity.hpp
     include/shacl/trait/InequalityDefined.hpp
     include/shacl/trait/InvokeDefined.hpp
-    include/shacl/trait/InvokeDefined.hpp
+    include/shacl/trait/InvokeNoThrow.hpp
     include/shacl/trait/InvokeResult.hpp
     include/shacl/trait/IsInteger.hpp
     include/shacl/trait/IsRange.hpp
@@ -71,7 +75,10 @@ target_sources(trait INTERFACE
     include/shacl/trait/SubtractionDefined.hpp
     include/shacl/trait/SubscriptDefined.hpp
     include/shacl/trait/SubscriptResult.hpp
-    include/shacl/trait/Sum.hpp>)
+    include/shacl/trait/Sum.hpp
+    include/shacl/trait/Sum.hpp
+    include/shacl/trait/SwapDefined.hpp
+    include/shacl/trait/SwapNoThrow.hpp>)
 
 if(trait.tests)
   add_subdirectory(AdditionDefined/test)
@@ -94,6 +101,7 @@ if(trait.tests)
   add_subdirectory(Identity/test)
   add_subdirectory(InequalityDefined/test)
   add_subdirectory(InvokeDefined/test)
+  add_subdirectory(InvokeNoThrow/test)
   add_subdirectory(InvokeResult/test)
   add_subdirectory(IsInteger/test)
   add_subdirectory(IsRange/test)
@@ -109,4 +117,6 @@ if(trait.tests)
   add_subdirectory(SubscriptDefined/test)
   add_subdirectory(SubscriptResult/test)
   add_subdirectory(Sum/test)
+  add_subdirectory(SwapDefined/test)
+  add_subdirectory(SwapNoThrow/test)
 endif()
