@@ -1,12 +1,17 @@
-template<typename Left, typename Right = Left, typename = void>
-struct LessThanEqualDefined : std::false_type {};
+namespace detail {
+template<typename Left, typename Right, typename = void>
+static constexpr bool LessThanEqualDefined_v = false;
 
 template<typename Left, typename Right>
-struct LessThanEqualDefined
+static constexpr bool LessThanEqualDefined_v
 <Left, Right,
- void_t<decltype(std::declval<Left>() <= std::declval<Right>())>>
-  : std::true_type {};
+ void_t<decltype(std::declval<Left>() <= std::declval<Right>())>> = true;
+}
+
+template<typename Left, typename Right = Left>
+using LessThanEqualDefined =
+  bool_t<detail::LessThanEqualDefined_v<Left, Right>>;
 
 template<typename Left, typename Right = Left>
 static constexpr bool LessThanEqualDefined_v =
- LessThanEqualDefined<Left, Right>::value;
+  detail::LessThanEqualDefined_v<Left, Right>;

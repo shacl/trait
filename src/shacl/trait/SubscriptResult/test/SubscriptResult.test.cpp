@@ -16,10 +16,10 @@ SCENARIO("SubscriptResult"){
     THEN(
       "SubscriptResult has a nested alias named 'type' referring"
       " to the result of dereferencing an instance of the type"){
-      REQUIRE(0 == shacl::trait::SubscriptResult<Yes>::typename type::value);
+      REQUIRE(0 == shacl::trait::SubscriptResult<Yes>::type::value);
       REQUIRE(0 == shacl::trait::SubscriptResult_t<Yes>::value);
       REQUIRE(1 == shacl::trait::SubscriptResult
-                   <Yes, std::string>::typename type::value);
+                   <Yes, std::string>::type::value);
       REQUIRE(1 == shacl::trait::SubscriptResult_t
                    <Yes, std::string>::value);
     }

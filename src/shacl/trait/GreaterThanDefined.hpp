@@ -1,12 +1,17 @@
-template<typename Left, typename Right = Left, typename = void>
-struct GreaterThanDefined : std::false_type {};
+namespace detail {
+template<typename Left, typename Right, typename = void>
+static constexpr bool GreaterThanDefined_v = false;
 
 template<typename Left, typename Right>
-struct GreaterThanDefined
+static constexpr bool GreaterThanDefined_v
 <Left, Right,
- void_t<decltype(std::declval<Left>() > std::declval<Right>())>>
-  : std::true_type {};
+ void_t<decltype(std::declval<Left>() > std::declval<Right>())>> = true;
+}
+
+template<typename Left, typename Right = Left, typename = void>
+using GreaterThanDefined = bool_t<detail::GreaterThanDefined_v<Left, Right>>;
 
 template<typename Left, typename Right = Left>
 static constexpr bool GreaterThanDefined_v =
- GreaterThanDefined<Left, Right>::value;
+  detail::GreaterThanDefined_v<Left, Right>;
+

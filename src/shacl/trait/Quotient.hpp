@@ -28,5 +28,11 @@ template<typename First, typename... Rest>
 struct Quotient :
   detail::Quotient<First, Rest...>::template Implementation<>{};
 
+template<typename... Args>
+using DivisionResult = Quotient<Args...>;
+
 template<typename First, typename... Rest>
 using Quotient_t = typename Quotient<First, Rest...>::type;
+
+template<typename First, typename... Rest>
+using DivisionResult_t = Quotient_t<First, Rest...>;

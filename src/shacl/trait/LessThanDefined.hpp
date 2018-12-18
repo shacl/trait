@@ -1,12 +1,17 @@
+namespace detail {
 template<typename Left, typename Right = Left, typename = void>
-struct LessThanDefined : std::false_type {};
+static constexpr bool LessThanDefined_v = false;
 
 template<typename Left, typename Right>
-struct LessThanDefined
+static constexpr bool LessThanDefined_v
 <Left, Right,
- void_t<decltype(std::declval<Left>() < std::declval<Right>())>>
-  : std::true_type {};
+ void_t<decltype(std::declval<Left>() < std::declval<Right>())>> = true;
+
+}
+
+template<typename Left, typename Right = Left>
+using LessThanDefined = bool_t<detail::LessThanDefined_v<Left, Right>>;
 
 template<typename Left, typename Right = Left>
 static constexpr bool LessThanDefined_v =
- LessThanDefined<Left, Right>::value;
+  detail::LessThanDefined_v<Left, Right>;

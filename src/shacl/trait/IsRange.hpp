@@ -1,11 +1,15 @@
+namespace detail {
 template<typename T, typename = void>
-struct IsRange : std::false_type {};
+static constexpr bool IsRange_v = false;
 
 template<typename T>
-struct IsRange
+static constexpr bool IsRange_v
 <T, void_t<decltype(std::begin(std::declval<T>())),
-           decltype(std::end(std::declval<T>()))>> :
-  std::true_type {};
+           decltype(std::end(std::declval<T>()))>> = true;
+}
 
 template<typename T>
-static constexpr bool IsRange_v = IsRange<T>::value;
+static constexpr bool IsRange_v = detail::IsRange_v<T>;
+
+template<typename T>
+using IsRange = bool_t<IsRange_v<T>>;

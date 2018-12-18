@@ -1,12 +1,16 @@
-template<typename Left, typename Right = Left, typename = void>
-struct AdditionDefined : std::false_type {};
+namespace detail {
+template<typename Left, typename Right, typename = void>
+static constexpr bool AdditionDefined_v = false;
 
 template<typename Left, typename Right>
-struct AdditionDefined
+static constexpr bool AdditionDefined_v
 <Left, Right,
- void_t<decltype(std::declval<Left>() + std::declval<Right>())>>
-  : std::true_type {};
+ void_t<decltype(std::declval<Left>() + std::declval<Right>())>> = true;
+}
 
 template<typename Left, typename Right = Left>
 static constexpr bool AdditionDefined_v =
- AdditionDefined<Left, Right>::value;
+  detail::AdditionDefined_v<Left, Right>;
+
+template<typename... Args>
+using AdditionDefined = bool_t<AdditionDefined_v<Args...>>;

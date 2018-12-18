@@ -1,12 +1,16 @@
-template<typename Left, typename Right = Left, typename = void>
-struct DivisionDefined : std::false_type {};
+namespace detail {
+template<typename Left, typename Right, typename = void>
+static constexpr bool DivisionDefined_v = false;
 
 template<typename Left, typename Right>
-struct DivisionDefined
+static constexpr bool DivisionDefined_v
 <Left, Right,
- void_t<decltype(std::declval<Left>() / std::declval<Right>())>>
-  : std::true_type {};
+ void_t<decltype(std::declval<Left>() / std::declval<Right>())>> = true;
+}
+
+template<typename Left, typename Right = Left>
+using DivisionDefined = bool_t<detail::DivisionDefined_v<Left, Right>>;
 
 template<typename Left, typename Right = Left>
 static constexpr bool DivisionDefined_v =
- DivisionDefined<Left, Right>::value;
+  detail::DivisionDefined_v<Left, Right>;

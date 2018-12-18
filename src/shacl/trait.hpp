@@ -10,6 +10,9 @@
 namespace shacl {
 namespace trait {
 
+template<bool b>
+using bool_t = std::integral_constant<bool, b>;
+
 #include "shacl/trait/void_t.hpp"
 #include "shacl/trait/HasType.hpp"
 

@@ -9,22 +9,25 @@ struct InvokeResult {
 
   template<typename G>
   struct Implementation<G, true> {
-    using type = decltype(INVOKE(std::declval<G>(), std::declval<Args>()...));
+    using type = InvokeResult_t<G, Args...>;
   };
 };
 
 }
 
-template<typename F, typename... Args>
+template<typename... Args>
 using InvokeResult =
-  typename detail::InvokeResult<F, Args...>::template Implementation<>;
+  typename detail::InvokeResult<Args...>::template Implementation<>;
+
+template<typename... Args>
+using InvokeResult_t = detail::InvokeResult_t<Args...>;
 
 #else
 
-template<typename F, typename... Args>
-using InvokeResult = std::invoke_result<F, Args...>;
+template<typename... Args>
+using InvokeResult = std::invoke_result<Args...>;
+
+template<typename... Args>
+using InvokeResult_t = std::invoke_result_t<Args...>;
 
 #endif
-
-template<typename F, typename... Args>
-using InvokeResult_t = typename InvokeResult<F, Args...>::type;

@@ -28,5 +28,11 @@ template<typename First, typename... Rest>
 struct Product :
   detail::Product<First, Rest...>::template Implementation<>{};
 
+template<typename... Args>
+using MultiplicationResult = Product<Args...>;
+
 template<typename First, typename... Rest>
 using Product_t = typename Product<First, Rest...>::type;
+
+template<typename First, typename... Rest>
+using MultiplicationResult_t = Product_t<First, Rest...>;
