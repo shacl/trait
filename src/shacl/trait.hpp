@@ -1,7 +1,9 @@
 #ifndef SHACL_TRAIT
 #define SHACL_TRAIT
 
+#include <array>
 #include <functional>
+#include <tuple>
 #include <type_traits>
 #include <iterator>
 
@@ -45,14 +47,24 @@ namespace trait {
 #include "shacl/trait/Arithmetic.hpp"
 
 #include "shacl/trait/DereferenceDefined.hpp"
-#include "shacl/trait/Dereferenced.hpp"
+#include "shacl/trait/DereferenceResult.hpp"
+
+#include "shacl/trait/SubscriptDefined.hpp"
+#include "shacl/trait/SubscriptResult.hpp"
 
 #include "shacl/trait/Conjunction.hpp"
 #include "shacl/trait/Disjunction.hpp"
 #include "shacl/trait/Negate.hpp"
 
+#include "shacl/trait/Identity.hpp"
+#include "shacl/trait/ConditionalApplication.hpp"
+
+#include "shacl/trait/Compound.hpp"
+#include "shacl/trait/getterResult.hpp"
+
 #include "shacl/trait/SwapDefined.hpp"
 #include "shacl/trait/SwapNoThrow.hpp"
+
 }
 }
 
