@@ -19,7 +19,7 @@ struct InvokeDefined {
 }
 
 template<typename... Args>
-static constexpr bool InvokeDefined_v =
+constexpr const bool InvokeDefined_v =
   detail::InvokeDefined<Args...>::template Implementation<>;
 
 template<typename... Args>
@@ -31,7 +31,7 @@ template<typename... Args>
 using InvokeDefined = std::is_invocable<Args...>;
 
 template<typename... Args>
-static constexpr bool InvokeDefined_v = std::is_invocable_v<Args...>;
+constexpr const bool InvokeDefined_v = std::is_invocable_v<Args...>;
 
 #endif
 

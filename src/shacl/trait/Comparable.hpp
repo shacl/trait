@@ -1,5 +1,5 @@
 template<typename Left, typename Right = Left>
-static constexpr bool Comparable_v =
+constexpr const bool Comparable_v =
   LessThanDefined_v<Left, Right>
   and LessThanEqualDefined_v<Left, Right>
   and GreaterThanDefined_v<Left, Right>
