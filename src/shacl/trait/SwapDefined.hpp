@@ -50,13 +50,13 @@ defined_for<T, U, void_t<decltype(swap(std::declval<T&>(),
 /**
  * Intel compiler workaround.
  *
- * On Intel 18.0.2, icpc does not correctly sfinae the previous signature for 
+ * On Intel 18.0.2, icpc does not correctly sfinae the previous signature for
  * array parameters. This specialization is a workaround for that failure.
- * Strictly speaking, this work around introduces the possibility of an incorrect
- * detection. Should a user delete the array-specific swap in the namespace of
- * the parameter type, this specialization will fail to detect that. In practice,
- * there is little utility to deleting that signature, so this is not expected
- * to be an issue in normal use.
+ * Strictly speaking, this work around introduces the possibility of an
+ * incorrect detection. Should a user delete the array-specific swap in the
+ * namespace of the parameter type, this specialization will fail to detect
+ * that. In practice, there is little utility to deleting that signature, so
+ * this is not expected to be an issue in normal use.
  */
 template<typename T, std::size_t N>
 static constexpr bool
@@ -70,5 +70,5 @@ defined_for<T[N], T[N], void_t<decltype(swap(std::declval<T&>(),
 template<typename T, typename U = T>
 static constexpr bool SwapDefined_v = detail::swap::defined_for<T, U>;
 
-template<typename T, typename U = T>
-struct SwapDefined : std::integral_constant<bool, SwapDefined_v<T, U>> {};
+template<typename... Args>
+using SwapDefined = bool_t<SwapDefined_v<Args...>>;

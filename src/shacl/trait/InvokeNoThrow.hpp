@@ -16,8 +16,9 @@ struct InvokeNoThrow {
 }
 
 template<typename Fn, typename... Args>
-using InvokeNoThrow =
-  typename detail::InvokeNoThrow<Fn, Args...>::template Implementation<>;
+constexpr const bool InvokeNoThrow_v =
+  noexcept(detail::INVOKE(std::declval<Fn>(), std::declval<Args>()...));
 
-template<typename Fn, typename... Args>
-static constexpr bool InvokeNoThrow_v = InvokeNoThrow<Fn, Args...>::value;
+template<typename... Args>
+using InvokeNoThrow =
+  typename detail::InvokeNoThrow<Args...>::template Implementation<>;
