@@ -9,11 +9,14 @@ using InvokeResult_t =
 template<typename F, typename... Args>
 struct InvokeDefined {
   template<typename G = F, typename = void>
-  static constexpr bool Implementation = false;
+  struct Implementation_t : std::false_type {};
 
   template<typename G>
-  static constexpr bool Implementation
-  <G, void_t<InvokeResult_t<G, Args...>>> = true;
+  struct Implementation_t
+  <G, void_t<InvokeResult_t<G, Args...>>> : std::true_type {};
+
+  template<typename G = F>
+  static constexpr bool Implementation = Implementation_t<G>::value;
 };
 
 }

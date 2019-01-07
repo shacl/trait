@@ -28,6 +28,6 @@ template<typename... Args>
 using InvokeResult = std::invoke_result<Args...>;
 
 template<typename... Args>
-using InvokeResult_t = std::invoke_result_t<Args...>;
+using InvokeResult_t = typename std::invoke_result<Args...>::type;
 
 #endif
