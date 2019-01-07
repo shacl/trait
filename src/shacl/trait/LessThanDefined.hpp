@@ -1,11 +1,14 @@
 namespace detail {
+template<typename Left, typename Right>
+using LessThanResult_t =
+  decltype(std::declval<Left>() < std::declval<Right>());
+
 template<typename Left, typename Right = Left, typename = void>
 constexpr const bool LessThanDefined_v = false;
 
 template<typename Left, typename Right>
 constexpr const bool LessThanDefined_v
-<Left, Right,
- void_t<decltype(std::declval<Left>() < std::declval<Right>())>> = true;
+<Left, Right, void_t<LessThanResult_t<Left, Right>>> = true;
 
 }
 

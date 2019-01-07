@@ -1,11 +1,14 @@
 namespace detail {
+template<typename Left, typename Right>
+using GreaterThanEqualResult_t =
+  decltype(std::declval<Left>() >= std::declval<Right>());
+
 template<typename Left, typename Right, typename = void>
 constexpr const bool GreaterThanEqualDefined_v = false;
 
 template<typename Left, typename Right>
 constexpr const bool GreaterThanEqualDefined_v
-<Left, Right,
- void_t<decltype(std::declval<Left>() >= std::declval<Right>())>> = true;
+<Left, Right, void_t<GreaterThanEqualResult_t<Left, Right>>> = true;
 }
 
 template<typename Left, typename Right = Left>

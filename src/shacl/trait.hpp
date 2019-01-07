@@ -28,13 +28,19 @@ using bool_t = std::integral_constant<bool, b>;
 #include "shacl/trait/InvokeResult.hpp"
 
 #include "shacl/trait/EqualityDefined.hpp"
+#include "shacl/trait/EqualityResult.hpp"
 #include "shacl/trait/InequalityDefined.hpp"
+#include "shacl/trait/InequalityResult.hpp"
 #include "shacl/trait/EqualityComparable.hpp"
 
 #include "shacl/trait/LessThanDefined.hpp"
+#include "shacl/trait/LessThanResult.hpp"
 #include "shacl/trait/LessThanEqualDefined.hpp"
+#include "shacl/trait/LessThanEqualResult.hpp"
 #include "shacl/trait/GreaterThanDefined.hpp"
+#include "shacl/trait/GreaterThanResult.hpp"
 #include "shacl/trait/GreaterThanEqualDefined.hpp"
+#include "shacl/trait/GreaterThanEqualResult.hpp"
 #include "shacl/trait/Comparable.hpp"
 
 #include "shacl/trait/MultiplicationDefined.hpp"
