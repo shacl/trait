@@ -6,4 +6,4 @@ struct Disjunction<T, Ts...> :
   std::conditional_t<bool(T::value), T, Disjunction<Ts...>> {};
 
 template<typename... Ts>
-static constexpr bool Disjunction_v = Disjunction<Ts...>::value;
+constexpr const bool Disjunction_v = Disjunction<Ts...>::value;

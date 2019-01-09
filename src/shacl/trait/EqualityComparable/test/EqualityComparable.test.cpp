@@ -39,6 +39,19 @@ struct OneWay {
   }
 };
 
+template<int i>
+struct TwoWay {
+  template<int j>
+  bool operator==(const TwoWay<j>&) const {
+    return true;
+  }
+
+  template<int j>
+  bool operator!=(const TwoWay<j>&) const {
+    return true;
+  }
+};
+
 SCENARIO("Homogeneous Parameters"){
   GIVEN("a type with a defined equality and inequality operator"){
     constexpr bool equalityComparable =
@@ -63,14 +76,14 @@ SCENARIO("Homogeneous Parameters"){
 }
 
 SCENARIO("Heterogeneous Parameters"){
-  GIVEN("a pair of types with a defined equality operator"){
+  GIVEN("a pair of types with a asymmetric equality operator"){
     constexpr bool equalityComparable =
       shacl::trait::EqualityComparable_v<OneWay<1>,OneWay<2>>;
-    REQUIRE(equalityComparable);
+    REQUIRE_FALSE(equalityComparable);
   }
-  GIVEN("a pair of types without a defined equality operator"){
+  GIVEN("a pair of types with a symmetric equality operator"){
     constexpr bool equalityComparable =
-      shacl::trait::EqualityComparable_v<OneWay<3>,OneWay<2>>;
-    REQUIRE(not equalityComparable);
+      shacl::trait::EqualityComparable_v<TwoWay<3>,TwoWay<2>>;
+    REQUIRE(equalityComparable);
   }
 }

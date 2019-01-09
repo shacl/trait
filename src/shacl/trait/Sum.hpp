@@ -25,8 +25,14 @@ struct Sum<Left, Right, Rest...> {
 
 }
 
-template<typename First, typename... Rest>
-struct Sum : detail::Sum<First, Rest...>::template Implementation<>{};
+template<typename... Args>
+using Sum = typename detail::Sum<Args...>::template Implementation<>;
 
-template<typename First, typename... Rest>
-using Sum_t = typename Sum<First, Rest...>::type;
+template<typename... Args>
+using AdditionResult = Sum<Args...>;
+
+template<typename... Args>
+using Sum_t = typename Sum<Args...>::type;
+
+template<typename... Args>
+using AdditionResult_t = Sum_t<Args...>;

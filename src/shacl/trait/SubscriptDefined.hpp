@@ -1,17 +1,21 @@
-template<typename T, typename IndexType = std::ptrdiff_t, typename = void>
-struct SubscriptDefined : std::false_type {};
-
 namespace detail {
 
 template<typename T, typename IndexType>
-using SubscriptResult = decltype(std::declval<T>()[std::declval<IndexType>()]);
+using SubscriptResult_t =
+  decltype(std::declval<T>()[std::declval<IndexType>()]);
+
+template<typename T, typename IndexType, typename = void>
+constexpr const bool SubscriptDefined_v = false;
+
+template<typename T, typename IndexType>
+constexpr const bool SubscriptDefined_v
+<T, IndexType, void_t<SubscriptResult_t<T, IndexType>>> = true;
 
 }
 
-template<typename T, typename IndexType>
-struct SubscriptDefined
-<T, IndexType, void_t<detail::SubscriptResult<T, IndexType>>> :
-  std::true_type {};
-
 template<typename T, typename IndexType = std::ptrdiff_t>
-static constexpr bool SubscriptDefined_v = SubscriptDefined<T, IndexType>::value;
+constexpr const bool SubscriptDefined_v =
+  detail::SubscriptDefined_v<T, IndexType>;
+
+template<typename... Args>
+using SubscriptDefined = bool_t<SubscriptDefined_v<Args...>>;

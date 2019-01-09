@@ -1,5 +1,4 @@
 namespace detail {
-
 template<typename Left, typename... Rest>
 struct Difference;
 
@@ -21,12 +20,16 @@ struct Difference<Left, Right, Rest... > {
     Difference<decltype(std::declval<Left>() - std::declval<Right>()),
                Rest...>::template Implementation<> {};
 };
-
 }
 
-template<typename First, typename... Rest>
-struct Difference :
-  detail::Difference<First, Rest...>::template Implementation<>{};
+template<typename... Args>
+using Difference = typename detail::Difference<Args...>::template Implementation<>;
 
-template<typename First, typename... Rest>
-using Difference_t = typename Difference<First, Rest...>::type;
+template<typename... Args>
+using SubtractionResult = Difference<Args...>;
+
+template<typename... Args>
+using Difference_t = typename Difference<Args...>::type;
+
+template<typename... Args>
+using SubtractionResult_t = Difference_t<Args...>;

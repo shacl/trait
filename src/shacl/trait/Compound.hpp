@@ -35,7 +35,7 @@ template<typename T, std::size_t index>
 struct GetDefined<T, index, true> : decltype(adl::can_get<index, T>(0)) {};
 
 template<typename T, std::size_t index = 0>
-static constexpr bool GetDefined_v = GetDefined<T, index>::value;
+constexpr const bool GetDefined_v = GetDefined<T, index>::value;
 
 }
 
@@ -69,7 +69,7 @@ struct get_fn {
 };
 
 template<long index>
-static constexpr get_fn<index> get{};
+constexpr const get_fn<index> get{};
 
 }
 

@@ -1,12 +1,19 @@
+namespace detail {
+template<typename Left, typename Right = Left>
+using InequalityResult_t =
+  decltype(std::declval<Left>() != std::declval<Right>());
+
 template<typename Left, typename Right = Left, typename = void>
-struct InequalityDefined : std::false_type {};
+constexpr const bool InequalityDefined_v = false;
 
 template<typename Left, typename Right>
-struct InequalityDefined
-<Left, Right,
- void_t<decltype(std::declval<Left>() != std::declval<Right>())>>
-  : std::true_type {};
+constexpr const bool InequalityDefined_v
+<Left, Right, void_t<InequalityResult_t<Left, Right>>> = true;
+}
 
 template<typename Left, typename Right = Left>
-static constexpr bool InequalityDefined_v =
-  InequalityDefined<Left, Right>::value;
+constexpr const bool InequalityDefined_v =
+  detail::InequalityDefined_v<Left, Right>;
+
+template<typename... Args>
+using InequalityDefined = bool_t<InequalityDefined_v<Args...>>;

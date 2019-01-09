@@ -2,30 +2,39 @@
 
 namespace detail {
 
+template<typename... Args>
+using InvokeResult_t =
+  decltype(INVOKE(std::declval<Args>()...));
+
 template<typename F, typename... Args>
 struct InvokeDefined {
   template<typename G = F, typename = void>
-  struct Implementation : std::false_type {};
+  struct Implementation_t : std::false_type {};
 
   template<typename G>
-  struct Implementation<G, void_t<decltype(INVOKE(std::declval<G>(),
-                                                  std::declval<Args>()...))>>
-    : std::true_type {};
+  struct Implementation_t
+  <G, void_t<InvokeResult_t<G, Args...>>> : std::true_type {};
+
+  template<typename G = F>
+  static constexpr bool Implementation = Implementation_t<G>::value;
 };
 
 }
 
-template<typename F, typename... Args>
-using InvokeDefined =
-  typename detail::InvokeDefined<F, Args...>::template Implementation<>;
+template<typename... Args>
+constexpr const bool InvokeDefined_v =
+  detail::InvokeDefined<Args...>::template Implementation<>;
+
+template<typename... Args>
+using InvokeDefined = bool_t<InvokeDefined_v<Args...>>;
 
 #else
 
-template<typename F, typename... Args>
-using InvokeDefined = std::is_invocable<F, Args...>;
+template<typename... Args>
+using InvokeDefined = std::is_invocable<Args...>;
+
+template<typename... Args>
+constexpr const bool InvokeDefined_v = std::is_invocable_v<Args...>;
 
 #endif
-
-template<typename F, typename... Args>
-static constexpr bool InvokeDefined_v = InvokeDefined<F, Args...>::value;
 
