@@ -127,10 +127,10 @@ build this library.
 
 #### Compiler Support
 
-The shacl::variant library is written in C++14, and makes considerable use of
-template metaprogramming, generalized constant expressions, and SFINAE. As such,
-a relatively robust C++ compiler supporting the C++14 standard is required. The
-following compilers are explicitly supported.
+The shacl::trait library is written in C++14, and makes considerable use of
+template metaprogramming and SFINAE. As such, a relatively robust C++ compiler
+supporting the C++14 standard is required. The following compilers are
+explicitly supported.
 
 + GNU g++ version 6.0.0 or later
 + LLVM clang++ version 3.5 or later
