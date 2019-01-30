@@ -62,8 +62,7 @@ these templates should come quite naturally.
 + `shacl::trait::EqualityResult` and `shacl::trait::EqualityResult_t`
 + `shacl::trait::InequalityDefined` and `shacl::trait::InequalityDefined_v`
 + `shacl::trait::InequalityResult` and `shacl::trait::InequalityResult_t`
-+ `shacl::trait::EqualityComparable` and `shacl::trait::EqualityComparable_v`
-<br>
++ `shacl::trait::EqualityComparable` and `shacl::trait::EqualityComparable_v` <br>
 
 + `shacl::trait::LessThanDefined` and `shacl::trait::LessThanDefined_v`
 + `shacl::trait::LessThanResult` and `shacl::trait::LessThanResult_t`
@@ -73,40 +72,33 @@ these templates should come quite naturally.
 + `shacl::trait::GreaterThanResult` and `shacl::trait::GreaterThanResult_t`
 + `shacl::trait::GreaterThanEqualDefined` and `shacl::trait::GreaterThanEqualDefined_v`
 + `shacl::trait::GreaterThanEqualResult` and `shacl::trait::GreaterThanEqualResult_t`
-+ `shacl::trait::Comparable` and `shacl::trait::Comparable_v`
-<br>
++ `shacl::trait::Comparable` and `shacl::trait::Comparable_v` <br>
 
 + `shacl::trait::MultiplicationDefined` and `shacl::trait::MultiplicationDefined_v`
 + `shacl::trait::Product` and `shacl::trait::Product_t`
 + `shacl::trait::DivisionDefined` and `shacl::trait::DivisionDefined_v`
 + `shacl::trait::Quotient` and `shacl::trait::Quotient_t`
-+ `shacl::trait::Scalable` and `shacl::trait::Scalable_v`
-<br>
++ `shacl::trait::Scalable` and `shacl::trait::Scalable_v` <br>
 
 + `shacl::trait::AdditionDefined` and `shacl::trait::AdditionDefined_v`
 + `shacl::trait::Sum` and `shacl::trait::Sum_t`
 + `shacl::trait::SubtractionDefined` and `shacl::trait::SubtractionDefined_v`
 + `shacl::trait::Difference` and `shacl::trait::Difference_t`
-+ `shacl::trait::Arithmetic` and `shacl::trait::Arithmetic_v`
-<br>
++ `shacl::trait::Arithmetic` and `shacl::trait::Arithmetic_v` <br>
 
 + `shacl::trait::DereferenceDefined` and `shacl::trait::DereferenceDefined_v`
-+ `shacl::trait::DereferenceResult` and `shacl::trait::DereferenceResult_t`
-<br>
++ `shacl::trait::DereferenceResult` and `shacl::trait::DereferenceResult_t` <br>
 
 + `shacl::trait::SubscriptDefined` and `shacl::trait::SubscriptDefined_v`
-+ `shacl::trait::SubscriptResult` and `shacl::trait::SubscriptResult_t`
-<br>
++ `shacl::trait::SubscriptResult` and `shacl::trait::SubscriptResult_t` <br>
 
 + `shacl::trait::IsRange` and `shacl::trait::IsRange_v`
-+ `shacl::trait::RangeTraits`
-<br>
++ `shacl::trait::RangeTraits` <br>
 
-+ `shacl::trait::Identity` and + `shacl::trait::Identity_t`
-+ `shacl::trait::ConditionalApplication` and `shacl::trait::ConditionalApplication_t`
-<br>
++ `shacl::trait::Identity` and `shacl::trait::Identity_t`
++ `shacl::trait::ConditionalApplication` and `shacl::trait::ConditionalApplication_t` <br>
 
-+ `shacl::trait::Compound` and + `shacl::trait::Compond_t`
++ `shacl::trait::Compound` and `shacl::trait::Compond_t`
 
 Build System
 --------------
