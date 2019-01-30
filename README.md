@@ -25,23 +25,23 @@ Standard Capabilities
 Backports of standard library features are available in the `shacl::trait`
 namespace, albeit under slightly different names in some cases.
 
-`std::conjunction` -> `shacl::trait::Conjunction`
-`std::conjunction_v` -> `shacl::trait::Conjunction_v`
-`std::disjunction` -> `shacl::trait::Disjunction`
-`std::disjunction_v` -> `shacl::trait::Disjunction_v`
-`std::invoke_result` -> `shacl::trait::InvokeResult`
-`std::invoke_result_t` -> `shacl::trait::InvokeResult_t`
-`std::is_invocable` -> `shacl::trait::InvokeDefined`
-`std::is_invocable_v` -> `shacl::trait::InvokeDefined_v`
-`std::is_nothrow_invocable` -> `shacl::trait::InvokeNoThrow`*
-`std::is_nothrow_invocable_v` -> `shacl::trait::InvokeNoThrow_v`*
-`std::is_nothrow_swappable` -> `shacl::trait::SwapNoThrow`*
-`std::is_nothrow_swappable_v` -> `shacl::trait::SwapNoThrow_v`*
-`std::is_swappable` -> `shacl::trait::Swappable`
-`std::is_swappable_v` -> `shacl::trait::Swappable_v`
-`std::negate` -> `shacl::trait::Negate`
-`std::negate_v` -> `shacl::trait::Negate_v`
-`std::void_t` -> `shacl::trait::void_t`
++ `std::conjunction` -> `shacl::trait::Conjunction`
++ `std::conjunction_v` -> `shacl::trait::Conjunction_v`
++ `std::disjunction` -> `shacl::trait::Disjunction`
++ `std::disjunction_v` -> `shacl::trait::Disjunction_v`
++ `std::invoke_result` -> `shacl::trait::InvokeResult`
++ `std::invoke_result_t` -> `shacl::trait::InvokeResult_t`
++ `std::is_invocable` -> `shacl::trait::InvokeDefined`
++ `std::is_invocable_v` -> `shacl::trait::InvokeDefined_v`
++ `std::is_nothrow_invocable` -> `shacl::trait::InvokeNoThrow`*
++ `std::is_nothrow_invocable_v` -> `shacl::trait::InvokeNoThrow_v`*
++ `std::is_nothrow_swappable` -> `shacl::trait::SwapNoThrow`*
++ `std::is_nothrow_swappable_v` -> `shacl::trait::SwapNoThrow_v`*
++ `std::is_swappable` -> `shacl::trait::Swappable`
++ `std::is_swappable_v` -> `shacl::trait::Swappable_v`
++ `std::negate` -> `shacl::trait::Negate`
++ `std::negate_v` -> `shacl::trait::Negate_v`
++ `std::void_t` -> `shacl::trait::void_t`
 
 \* These shacl traits have slightly different semantics than their standard
 library conterparts. In each case, the shacl version of each type trait struct
