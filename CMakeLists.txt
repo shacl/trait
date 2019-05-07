@@ -43,7 +43,7 @@ if(shacl.trait.tests)
 
   target_link_libraries(shacl::trait::testing INTERFACE
     shacl::cmake::Warnings_CXX
-    shacl::cmake::sanitizers_CXX
+    shacl::cmake::Sanitizers_CXX
     Catch2::Catch2
     shacl::trait)
 endif()
