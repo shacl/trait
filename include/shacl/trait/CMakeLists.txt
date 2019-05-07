@@ -35,9 +35,9 @@ target_sources(trait INTERFACE
   "${prefix}/shacl/trait/SubscriptDefined.hpp"
   "${prefix}/shacl/trait/SubscriptResult.hpp"
   "${prefix}/shacl/trait/Sum.hpp"
-  "${prefix}/shacl/trait/Sum.hpp"
   "${prefix}/shacl/trait/SwapDefined.hpp"
-  "${prefix}/shacl/trait/SwapNoThrow.hpp")
+  "${prefix}/shacl/trait/SwapNoThrow.hpp"
+  "${prefix}/shacl/trait/void_t.hpp")
 
 if(shacl.trait.tests)
   add_subdirectory(AdditionDefined/test)
