@@ -5,7 +5,12 @@ if(DEFINED PROJECT_NAME)
   set(subproject ON)
 endif()
 
-project(shacl-trait LANGUAGES CXX VERSION 2.0.0)
+project(shacl-trait
+  VERSION 2.0.0
+  DESCRIPTION "A C++ type trait template library"
+  HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/SCL/repos/trait"
+  LANGUAGES CXX)
+
 include(CTest)
 include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
@@ -61,7 +66,7 @@ target_include_directories(trait INTERFACE "${prefix}")
 add_subdirectory(include/shacl)
 
 install(DIRECTORY include/
-  DESTINATION include
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
   PATTERN "*test*" EXCLUDE
   PATTERN "*CMakeLists.txt" EXCLUDE
   PATTERN "*~" EXCLUDE)
@@ -90,8 +95,6 @@ install(FILES
 if(NOT subproject)
   set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory")
   set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-  set(CMAKE_PROJECT_HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/SCL/repos/trait")
-  set(CMAKE_PACKAGE_DESCRIPTION_SUMMARY "C++ type traits")
-  set(CMAKE_PACKAGE_CONTACT "amccartney@lanl.gov")
+  set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
   include(CPack)
 endif()
