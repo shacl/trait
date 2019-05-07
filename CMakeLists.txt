@@ -82,7 +82,6 @@ install(EXPORT traitTargets
   NAMESPACE shacl::
   DESTINATION share/cmake/shacl-trait)
 
-include(CMakePackageConfigHelpers)
 write_basic_package_version_file("shacl-trait-config-version.cmake"
   VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion)
