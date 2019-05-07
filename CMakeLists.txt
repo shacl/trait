@@ -11,6 +11,8 @@ project(shacl-trait
   HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/SCL/repos/trait"
   LANGUAGES CXX)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 include(CTest)
 include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
