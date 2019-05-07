@@ -67,9 +67,8 @@ add_subdirectory(include/shacl)
 
 install(DIRECTORY include/
   DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-  PATTERN "*test*" EXCLUDE
-  PATTERN "*CMakeLists.txt" EXCLUDE
-  PATTERN "*~" EXCLUDE)
+  FILES_MATCHING PATTERN "*.hpp"
+  PATTERN "*test*" EXCLUDE)
 
 install(FILES
   "${PROJECT_SOURCE_DIR}/.cmake/shacl-config.cmake"
