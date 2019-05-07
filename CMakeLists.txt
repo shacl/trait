@@ -1,113 +1,107 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.12)
 
+set(subproject OFF)
 if(DEFINED PROJECT_NAME)
   set(subproject ON)
-else()
-  set(subproject OFF)
 endif()
 
-project(trait VERSION 1.0.0 LANGUAGES CXX)
+project(shacl-trait
+  VERSION 2.0.0
+  DESCRIPTION "A C++ type trait template library"
+  HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/SCL/repos/trait"
+  LANGUAGES CXX)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 include(CTest)
 include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
 
-CMAKE_DEPENDENT_OPTION(trait.tests
+if(EXISTS "${PROJECT_SOURCE_DIR}/cmake/specification.cmake")
+  set(git.submodule.packages.specification
+    "${PROJECT_SOURCE_DIR}/cmake/specification.cmake" CACHE FILEPATH
+    "(READ ONLY) Path to consumed git submodule packages specification file" FORCE)
+  include("${PROJECT_SOURCE_DIR}/cmake/specification.cmake")
+endif()
+
+CMAKE_DEPENDENT_OPTION(shacl.trait.tests
   "Build the trait tests and integrate with ctest"
-  "${BUILD_TESTING}" "NOT ${subproject}" OFF)
+  ON "BUILD_TESTING; NOT subproject" OFF)
 
 add_library(trait INTERFACE)
 add_library(shacl::trait ALIAS trait)
 
-target_compile_features(trait INTERFACE cxx_std_14)
-
-target_include_directories(trait INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src>
-  $<INSTALL_INTERFACE:include>)
-
-if(trait.tests)
-  list(APPEND CMAKE_MODULE_PATH "${trait_SOURCE_DIR}/.cmake")
+if(shacl.trait.tests)
+  list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/.cmake")
   include(Git/Submodule/Packages)
   include(Warnings)
-  find_package(Catch2)
+  include(Sanitizers)
+
+  configure_file(
+    "${PROJECT_SOURCE_DIR}/cmake/CTestCustom.cmake"
+    "${PROJECT_BINARY_DIR}/CTestCustom.cmake"
+    COPYONLY)
 
   set(CMAKE_CXX_EXTENSIONS OFF)
 
-  add_library(testing INTERFACE)
-  add_library(shacl::trait::testing ALIAS testing)
+  add_library(shacl::trait::testing IMPORTED INTERFACE)
 
-  set_target_properties(testing PROPERTIES
+  set_target_properties(shacl::trait::testing PROPERTIES
     INTERFACE_WARN_ALL ON
     INTERFACE_WARN_ERROR ON)
 
-  set_property(TARGET testing APPEND PROPERTY COMPATIBLE_INTERFACE_BOOL
-    WARN_ALL WARN_ERROR)
+  set_property(TARGET shacl::trait::testing APPEND PROPERTY
+    COMPATIBLE_INTERFACE_BOOL WARN_ALL WARN_ERROR)
 
-  target_link_libraries(testing INTERFACE Warnings::Warnings_CXX)
-  target_link_libraries(testing INTERFACE Catch2::Catch2)
-  target_link_libraries(testing INTERFACE shacl::trait)
+  find_package(Catch2 REQUIRED)
+
+  target_link_libraries(shacl::trait::testing INTERFACE
+    shacl::cmake::Warnings_CXX
+    shacl::cmake::Sanitizers_CXX
+    Catch2::Catch2
+    shacl::trait)
 endif()
 
-add_subdirectory(src/shacl)
+target_compile_features(trait INTERFACE cxx_std_14)
 
-install(DIRECTORY src/
-  DESTINATION include
-  USE_SOURCE_PERMISSIONS
-  PATTERN "*test*" EXCLUDE
-  PATTERN "*CMakeLists.txt" EXCLUDE
-  PATTERN "*.h")
+include(GNUInstallDirs)
+
+string(CONCAT prefix
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>"
+  "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+target_include_directories(trait INTERFACE "${prefix}")
+
+add_subdirectory(include/shacl)
+
+install(DIRECTORY include/
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+  FILES_MATCHING PATTERN "*.hpp"
+  PATTERN "*test*" EXCLUDE)
 
 install(FILES
-  "${trait_SOURCE_DIR}/.cmake/shaclConfig.cmake"
-  DESTINATION share/cmake/shacl
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  "${PROJECT_SOURCE_DIR}/.cmake/shacl-config.cmake"
+  DESTINATION share/cmake/shacl)
 
-install(TARGETS trait EXPORT traitConfig)
+install(TARGETS trait EXPORT traitTargets)
 
-install(EXPORT traitConfig
-  FILE traitTargets.cmake
+install(EXPORT traitTargets
+  FILE "shacl-trait-targets.cmake"
   NAMESPACE shacl::
-  DESTINATION share/cmake/shacl/trait
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  DESTINATION share/cmake/shacl-trait)
 
-write_basic_package_version_file("traitConfigVersion.cmake"
-  VERSION ${trait_VERSION}
+write_basic_package_version_file("shacl-trait-config-version.cmake"
+  VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion)
 
 install(FILES
-  "${trait_SOURCE_DIR}/.cmake/traitConfig.cmake"
-  "${trait_BINARY_DIR}/traitConfigVersion.cmake"
-  DESTINATION share/cmake/shacl/trait
-  PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+  "${PROJECT_SOURCE_DIR}/cmake/shacl-trait-config.cmake"
+  "${PROJECT_BINARY_DIR}/shacl-trait-config-version.cmake"
+  DESTINATION share/cmake/shacl-trait)
 
-if(NOT subpackage)
-  #
-  # Rudimentary CPack support.
-  #
-  # CPack provides a mechanism to generate installation packaging for a project,
-  # e.g., self-extracting shell scripts, compressed tarballs, Debian Package files,
-  # RPM Package Manager files, Windows NSIS installation wizards,
-  # Apple Disk Images (.dmg), etc.
-  #
-  # Any system libraries required (runtimes, threading, etc) should be bundled
-  # with the project for this type of installation. The
-  # `InstallRequiredSystemLibraries` CMake module attempts to provide this
-  # functionality in an automated way. Additional libraries may be specified as
-  #
-  # ```cmake
-  # list(APPEND CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS <library>)
-  # ```
-  #
-  # A packaged installation can be generated by calling
-  #
-  # ```sh
-  # cpack -G <packaging type> --config CPackConfig.cmake
-  # ```
-  #
-  # See `cpack --help` or the CPack documentation for more information.
-  #
-  include( InstallRequiredSystemLibraries )
-  set( CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory" )
-  set( CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE" )
-  set( CMAKE_PROJECT_HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/SCL/repos/trait" )
-  include( CPack )
+if(NOT subproject)
+  set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory")
+  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+  set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
+  include(CPack)
 endif()
