@@ -17,6 +17,15 @@ include(CTest)
 include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
 
+#
+# The file referenced in this block used by version branches of shacl::trait to
+# fix the version of the dependencies found by the find_package overload
+# provided by Git Submodule Packages.
+#
+# Currently, shacl::trait has no dependencies. That said, this block provides
+# some degree of forward compatability should a dependency become useful and
+# allows for uniformity between shacl projects.
+#
 if(EXISTS "${PROJECT_SOURCE_DIR}/cmake/specification.cmake")
   set(git.submodule.packages.specification
     "${PROJECT_SOURCE_DIR}/cmake/specification.cmake" CACHE FILEPATH
