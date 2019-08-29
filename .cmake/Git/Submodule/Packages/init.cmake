@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12.1)
+include_guard(GLOBAL)
 
 function(git_submodule_init name)
   set(source_dir "${git.submodule.packages.cache}")
@@ -6,6 +6,11 @@ function(git_submodule_init name)
 
   if(NOT EXISTS "${source_dir}/${name}/.git")
     set(url "${git.submodule.package.${name}.url}")
+
+    if(NOT url)
+      string(REPLACE "NEWLINE" "\n" message "${git.submodule.package.${name}.deferred_error}")
+      message(FATAL_ERROR "${message}")
+    endif()
 
     if(NOT QUIET)
       message(STATUS "Cloning ${name} git submodule package...")
