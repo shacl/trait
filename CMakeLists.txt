@@ -83,34 +83,36 @@ target_include_directories(trait INTERFACE "${prefix}")
 
 add_subdirectory(include/shacl)
 
-install(DIRECTORY include/
-  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-  FILES_MATCHING PATTERN "*.hpp"
-  PATTERN "*test*" EXCLUDE)
+if((NOT subproject) OR INSTALL_SUBPROJECTS)
+  install(DIRECTORY include/
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    FILES_MATCHING PATTERN "*.hpp"
+    PATTERN "*test*" EXCLUDE)
 
-install(FILES
-  "${PROJECT_SOURCE_DIR}/.cmake/shacl-config.cmake"
-  DESTINATION share/cmake/shacl)
+  install(FILES
+    "${PROJECT_SOURCE_DIR}/.cmake/shacl-config.cmake"
+    DESTINATION share/cmake/shacl)
 
-install(TARGETS trait EXPORT traitTargets)
+  install(TARGETS trait EXPORT traitTargets)
 
-install(EXPORT traitTargets
-  FILE "shacl-trait-targets.cmake"
-  NAMESPACE shacl::
-  DESTINATION share/cmake/shacl-trait)
+  install(EXPORT traitTargets
+    FILE "shacl-trait-targets.cmake"
+    NAMESPACE shacl::
+    DESTINATION share/cmake/shacl-trait)
 
-write_basic_package_version_file("shacl-trait-config-version.cmake"
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion)
+  write_basic_package_version_file("shacl-trait-config-version.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion)
 
-install(FILES
-  "${PROJECT_SOURCE_DIR}/cmake/shacl-trait-config.cmake"
-  "${PROJECT_BINARY_DIR}/shacl-trait-config-version.cmake"
-  DESTINATION share/cmake/shacl-trait)
+  install(FILES
+    "${PROJECT_SOURCE_DIR}/cmake/shacl-trait-config.cmake"
+    "${PROJECT_BINARY_DIR}/shacl-trait-config-version.cmake"
+    DESTINATION share/cmake/shacl-trait)
 
-if(NOT subproject)
-  set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory")
-  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-  set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
-  include(CPack)
+  if(NOT subproject)
+    set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory")
+    set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+    set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
+    include(CPack)
+  endif()
 endif()
