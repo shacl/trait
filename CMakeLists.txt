@@ -73,6 +73,13 @@ endif()
 
 target_compile_features(trait INTERFACE cxx_std_14)
 
+if(MSVC_VERSION GREATER_EQUAL 1910)
+  # On MSVC, must set standards-conformant mode.
+  target_compile_options(trait INTERFACE "/permissive-")
+elseif(MSVC)
+  message(FATAL_ERROR "MSVC++ 14.10 or newer (Visual Studio 2017) is required to use this library.")
+endif()
+
 include(GNUInstallDirs)
 
 string(CONCAT prefix
