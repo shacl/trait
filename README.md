@@ -305,6 +305,11 @@ The list of supported generators varies from platform to platform. See the
 output of `cpack --help` for a complete list of supported generators on your
 platform.
 
+License
+-------
+
+See [license file](./LICENSE).
+
 Recommended Introductory Material
 ------------------------
 
