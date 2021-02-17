@@ -1,7 +1,26 @@
 cmake_minimum_required(VERSION 3.12.1)
-include_guard(GLOBAL)
+include_guard(DIRECTORY)
+
+include("${CMAKE_CURRENT_LIST_DIR}/config.cmake")
+if(shacl.cmake.installation)
+  get_property(
+    shacl.cmake.installed_modules GLOBAL PROPERTY shacl.cmake.installed_modules)
+
+  if(NOT "CMakeDependentSelection" IN_LIST shacl.cmake.installed_modules)
+    set_property(GLOBAL APPEND PROPERTY
+      shacl.cmake.installed_modules "CMakeDependentSelection")
+
+    install(
+      FILES "${CMAKE_CURRENT_LIST_FILE}"
+      DESTINATION share/cmake/shacl/.cmake)
+  endif()
+
+  unset(shacl.cmake.installed_modules)
+endif()
+
 include(Selection)
 
+include_guard(GLOBAL)
 function(CMAKE_DEPENDENT_SELECTION variable docstring)
   cmake_parse_arguments(${variable}_selection
     "" "DEFAULT;CONDITION" OPTIONS ${ARGN})
@@ -40,11 +59,13 @@ function(CMAKE_DEPENDENT_SELECTION variable docstring)
 
   if(${variable}_selection_AVAILABLE)
     if(DEFINED ${variable}_selection_DEFAULT)
-      selection(${variable} "${docstring}"
+      selection(${variable} 
+        DOCSTRING "${docstring}"
         DEFAULT "${${variable}_selection_DEFAULT}"
         OPTIONS "${${variable}_selection_OPTIONS}")
     else()
-      selection(${variable} "${docstring}"
+      selection(${variable} 
+        DOCSTRING "${docstring}"
         OPTIONS "${${variable}_selection_OPTIONS}")
     endif()
     set(${variable} "${${variable}}" CACHE STRING "${docstring}" FORCE)
@@ -55,7 +76,3 @@ function(CMAKE_DEPENDENT_SELECTION variable docstring)
     set(${variable} "${${variable}_selection_fallback}" PARENT_SCOPE)
   endif()
 endfunction()
-
-install(FILES
-  ${CMAKE_CURRENT_LIST_DIR}/CMakeDependentSelection.cmake
-  DESTINATION share/cmake/shacl/.cmake)

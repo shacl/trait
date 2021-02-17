@@ -6,16 +6,19 @@ if(DEFINED PROJECT_NAME)
 endif()
 
 project(shacl-trait
-  VERSION 2.0.0
+  VERSION 2.1.0
   DESCRIPTION "A C++ type trait template library"
   HOMEPAGE_URL "https://xcp-stash.lanl.gov/projects/SCL/repos/trait"
   LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/.cmake")
+
 include(CTest)
 include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
+include(DependentDelegatingOption)
 
 #
 # The file referenced in this block used by version branches of shacl::trait to
@@ -37,11 +40,17 @@ CMAKE_DEPENDENT_OPTION(shacl.trait.tests
   "Build the trait tests and integrate with ctest"
   ON "BUILD_TESTING; NOT subproject" OFF)
 
+dependent_delegating_option(shacl.trait.installation
+  DEFAULT INSTALL_SUBPROJECTS
+  DOCSTRING "Perform a full installation of trait"
+  CONDITION "subproject"
+  FALLBACK ON
+)
+
 add_library(trait INTERFACE)
 add_library(shacl::trait ALIAS trait)
 
 if(shacl.trait.tests)
-  list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/.cmake")
   include(Git/Submodule/Packages)
   include(Warnings)
   include(Sanitizers)
@@ -90,34 +99,36 @@ target_include_directories(trait INTERFACE "${prefix}")
 
 add_subdirectory(include/shacl)
 
-install(DIRECTORY include/
-  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-  FILES_MATCHING PATTERN "*.hpp"
-  PATTERN "*test*" EXCLUDE)
+if(shacl.trait.installation)
+  install(DIRECTORY include/
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    FILES_MATCHING PATTERN "*.hpp"
+    PATTERN "*test*" EXCLUDE)
 
-install(FILES
-  "${PROJECT_SOURCE_DIR}/.cmake/shacl-config.cmake"
-  DESTINATION share/cmake/shacl)
+  install(FILES
+    "${PROJECT_SOURCE_DIR}/.cmake/shacl-config.cmake"
+    DESTINATION share/cmake/shacl)
 
-install(TARGETS trait EXPORT traitTargets)
+  install(TARGETS trait EXPORT traitTargets)
 
-install(EXPORT traitTargets
-  FILE "shacl-trait-targets.cmake"
-  NAMESPACE shacl::
-  DESTINATION share/cmake/shacl-trait)
+  install(EXPORT traitTargets
+    FILE "shacl-trait-targets.cmake"
+    NAMESPACE shacl::
+    DESTINATION share/cmake/shacl-trait)
 
-write_basic_package_version_file("shacl-trait-config-version.cmake"
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY SameMajorVersion)
+  write_basic_package_version_file("shacl-trait-config-version.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion)
 
-install(FILES
-  "${PROJECT_SOURCE_DIR}/cmake/shacl-trait-config.cmake"
-  "${PROJECT_BINARY_DIR}/shacl-trait-config-version.cmake"
-  DESTINATION share/cmake/shacl-trait)
+  install(FILES
+    "${PROJECT_SOURCE_DIR}/cmake/shacl-trait-config.cmake"
+    "${PROJECT_BINARY_DIR}/shacl-trait-config-version.cmake"
+    DESTINATION share/cmake/shacl-trait)
 
-if(NOT subproject)
-  set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory")
-  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-  set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
-  include(CPack)
+  if(NOT subproject)
+    set(CPACK_PACKAGE_VENDOR "Los Alamos National Laboratory")
+    set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+    set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
+    include(CPack)
+  endif()
 endif()
