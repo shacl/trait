@@ -13,9 +13,12 @@ project(shacl-trait
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/.cmake")
+
 include(CTest)
 include(CMakePackageConfigHelpers)
 include(CMakeDependentOption)
+include(DependentDelegatingOption)
 
 #
 # The file referenced in this block used by version branches of shacl::trait to
@@ -48,7 +51,6 @@ add_library(trait INTERFACE)
 add_library(shacl::trait ALIAS trait)
 
 if(shacl.trait.tests)
-  list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/.cmake")
   include(Git/Submodule/Packages)
   include(Warnings)
   include(Sanitizers)
@@ -129,10 +131,4 @@ if(shacl.trait.installation)
     set(CPACK_PACKAGE_CONTACT "amccartney@lanl.gov")
     include(CPack)
   endif()
-else()
-  install(TARGETS trait
-    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-  )
 endif()
