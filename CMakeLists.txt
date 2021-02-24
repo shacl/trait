@@ -40,11 +40,16 @@ CMAKE_DEPENDENT_OPTION(shacl.trait.tests
   "Build the trait tests and integrate with ctest"
   ON "BUILD_TESTING; NOT subproject" OFF)
 
+# Allow coarse-grain exclusion from INSTALLATION, with default of ON
+CMAKE_DEPENDENT_OPTION(INSTALL_SUBPROJECTS
+    "Perform installaiton of some subprojects"
+    ON "subproject" ON)
+  
 dependent_delegating_option(shacl.trait.installation
-  DEFAULT INSTALL_SUBPROJECTS
-  DOCSTRING "Perform a full installation of trait"
-  CONDITION "subproject"
-  FALLBACK ON
+    DEFAULT INSTALL_SUBPROJECTS
+    DOCSTRING "Perform a full installation of trait"
+    CONDITION "subproject"
+    FALLBACK ON
 )
 
 add_library(trait INTERFACE)
