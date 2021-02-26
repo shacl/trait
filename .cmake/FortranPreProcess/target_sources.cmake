@@ -1,13 +1,12 @@
-cmake_minimum_required(VERSION 3.12.1)
 backup(target_sources)
 
 function(target_sources target tag linkage)
-  if(NOT ${tag} STREQUAL "PREPROCESS")
+  if(NOT tag STREQUAL "PREPROCESS")
     previous_target_sources(${ARGV})
     return()
   endif()
 
-  foreach(arg ${ARGN})
+  foreach(arg IN LISTS ARGN)
     if(arg STREQUAL "PUBLIC"
         OR arg STREQUAL "PRIVATE"
         OR arg STREQUAL "INTERFACE")
@@ -18,12 +17,12 @@ function(target_sources target tag linkage)
         return()
       endif()
 
-      file(RELATIVE_PATH path ${CMAKE_CURRENT_LIST_DIR} "${arg}")
+      file(RELATIVE_PATH path "${CMAKE_CURRENT_LIST_DIR}" "${arg}")
       get_filename_component(directory "${path}" DIRECTORY)
       file(MAKE_DIRECTORY "${LIST_BINARY_DIR}/${directory}")
 
       FortranPreProcess_filename("${path}" preprocessed_path)
-      
+
       FortranPreProcess(
         "${CMAKE_CURRENT_LIST_DIR}/${path}"
         "${LIST_BINARY_DIR}/${preprocessed_path}"
